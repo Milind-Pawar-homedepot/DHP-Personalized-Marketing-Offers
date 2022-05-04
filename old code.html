@@ -1,0 +1,161 @@
+<script type="text/javascript">
+  try {
+        let getStoreID = function() {
+              let storeID = false;
+              let decodedValue = JSON.parse(decodeURIComponent(readCookie("THD_LOCALIZER")));
+              if(decodedValue) {
+               let locStore = decodedValue.THD_LOCSTORE;
+               if(locStore.length > 0){
+                  let locStoreDetails = locStore.split("+");
+                  if(locStoreDetails.length > 1){
+                     storeID = locStoreDetails[0] || '';
+                     if(storeID != ''){
+                       if(!isNaN(parseInt(locStoreDetails[0]))){
+                          storeID = locStoreDetails[0];
+                       }
+                     }
+                  }
+               }
+              }
+              if (!storeID && digitalData && digitalData.user && digitalData.user.localization) {
+                storeID = digitalData.user.localization.storeNumber; 
+              }
+              if (!storeID && _dD && _dD.user && _dD.user.localization) {
+                 storeID = _dD.user.localization.storeNumber; 
+              }
+              if(!storeID && targetPageParamsAll() != null){
+                  storeID = new URLSearchParams(targetPageParamsAll()).get("storeNumber");
+              }
+              if (!storeID) {
+                 storeID = false;
+              };
+              return storeID;
+          }
+          let updateBanner=function(evt){
+             if(evt && evt.animationName === "tntmarketingcampaign") {
+              let mis = Number();
+          let inter = 600, tim = setInterval(() => {
+          if(document.querySelectorAll('.section__container--88ack #spotlight-php-hydrator').length==4) {
+              clearInterval(tim);
+              if(readCookie('thda.m')!=''){
+                  let mcvisid,storeid;
+                  mcvisid=readCookie('thda.m');
+                    storeid=getStoreID();
+             //   let api='https://datascience-testservice-api.hd-datascience-prod.gcp.homedepot.com/dts/v1/data?anchor='+mcvisid+'&model=personalized_deals_s&appid=desktop&key=AnPrMR0LKfdglJQfoHqsT4sAhDLHNaGw&storeid='+storeid;
+                      let api='https://datascience-testservice-api.hd-datascience-prod.gcp.homedepot.com/dts/v1/data?anchor=83343141658024165186572616193183861003&model=personalized_deals_s&appid=desktop&key=AnPrMR0LKfdglJQfoHqsT4sAhDLHNaGw&storeid=123';
+                     // let api='https://datascience-testservice-api.hd-datascience-prod.gcp.homedepot.com/dts/v1/data?anchor=67933911911287963940508336747318789984&model=personalized_deals_s&appid=desktop&key=AnPrMR0LKfdglJQfoHqsT4sAhDLHNaGw&storeid=123';
+                        console.log("First "+api);
+                    //above console log is running 4 times
+                    fetch(api)
+                          .then(resp => resp.json())
+                          .then(resp => {
+                              if(resp && resp['data'].length==4){
+                                for(let i=0;i<resp['data'].length;i++){
+                                  document.querySelectorAll('.section__container--88ack #spotlight-php-hydrator')[i].querySelectorAll(".paper--aa8qd.card > div")[0].querySelector('a').setAttribute('href',resp['data'][i]['destination_url']);
+              
+                                  document.querySelectorAll('.section__container--88ack #spotlight-php-hydrator')[i].querySelectorAll(".paper--aa8qd.card > div")[0].querySelector('img').setAttribute('src',resp['data'][i]['PHP_img_url']);
+
+                                  document.querySelectorAll('.section__container--88ack #spotlight-php-hydrator')[i].querySelectorAll(".paper--aa8qd.card > div")[1].querySelector('a').setAttribute('href',resp['data'][i]['destination_url']);
+              
+                                  document.querySelectorAll('.section__container--88ack #spotlight-php-hydrator')[i].querySelectorAll(".paper--aa8qd.card > div")[1].querySelector('h2').innerText=resp['data'][i]['message1'];
+              
+                                  document.querySelectorAll('.section__container--88ack #spotlight-php-hydrator')[i].querySelectorAll(".paper--aa8qd.card > div")[1].querySelector('p').innerText=resp['data'][i]['message2'];
+  
+              
+                                }
+                              }
+                          });
+  
+                }
+          }
+          else {
+                  mis++;
+                  mis > inter && clearInterval(tim);
+              }
+          },inter);
+  
+             }
+             else if(evt && evt.animationName === "tntmarketingcampaign2") {
+              let mis = Number();
+          let inter = 600, tim = setInterval(() => {
+          if(document.querySelectorAll('[data-module-id=PromotionalNavigation_thd_5874] .promotionalNav2__container > .promotionalNav2__card').length==4) {
+              clearInterval(tim);
+              if(readCookie('thda.m')!=''){
+                  let mcvisid,storeid;
+                  mcvisid=readCookie('thda.m');
+                    storeid=getStoreID();
+              //  let api='https://datascience-testservice-api.hd-datascience-prod.gcp.homedepot.com/dts/v1/data?anchor='+mcvisid+'&model=personalized_deals_s&appid=desktop&key=AnPrMR0LKfdglJQfoHqsT4sAhDLHNaGw&storeid='+storeid;
+                      let api='https://datascience-testservice-api.hd-datascience-prod.gcp.homedepot.com/dts/v1/data?anchor=83343141658024165186572616193183861003&model=personalized_deals_s&appid=desktop&key=AnPrMR0LKfdglJQfoHqsT4sAhDLHNaGw&storeid=123';
+                     // let api='https://datascience-testservice-api.hd-datascience-prod.gcp.homedepot.com/dts/v1/data?anchor=67933911911287963940508336747318789984&model=personalized_deals_s&appid=desktop&key=AnPrMR0LKfdglJQfoHqsT4sAhDLHNaGw&storeid=123';
+                        console.log("Second "+api);
+                    
+                    fetch(api)
+                          .then(resp => resp.json())
+                          .then(resp => {
+                              if(resp && resp['data'].length==4){
+                                for(let i=0;i<resp['data'].length;i++){
+                                  document.querySelectorAll('[data-module-id=PromotionalNavigation_thd_5874] .promotionalNav2__container > .promotionalNav2__card')[i].querySelector('a').setAttribute('href',resp['data'][i]['destination_url']);
+              
+                                  document.querySelectorAll('[data-module-id=PromotionalNavigation_thd_5874] .promotionalNav2__container > .promotionalNav2__card')[i].querySelector('img').setAttribute('src',resp['data'][i]['DHP_img_url']);
+              
+                                  document.querySelectorAll('[data-module-id=PromotionalNavigation_thd_5874] .promotionalNav2__container > .promotionalNav2__card')[i].querySelector('.promotionalNav2__card__textContainer .promotionalNav2__card__heading').innerText=resp['data'][i]['message1'];
+              
+                                  document.querySelectorAll('[data-module-id=PromotionalNavigation_thd_5874] .promotionalNav2__container > .promotionalNav2__card')[i].querySelector('.promotionalNav2__card__textContainer .promotionalNav2__card__subheading').innerText=resp['data'][i]['message2'];
+  
+              
+                                }
+                              }
+                          });
+  
+                }
+          }
+          else {
+                  mis++;
+                  mis > inter && clearInterval(tim);
+              }
+          },inter);
+  
+             }
+          }
+          let readCookie = function ( e ) {
+                   e = encodeURIComponent( e );
+                   let t = ( ";" + document.cookie ).split( " " ).join( ";" ),
+                   n = t.indexOf( ";" + e + "=" ),
+                   i = n < 0 ? n : t.indexOf( ";", n + 1 );
+                   return n < 0 ? "" : decodeURIComponent( t.substring( n + 2 + e.length, i < 0 ? t.length : i ) );
+           };
+          document.addEventListener("animationstart", updateBanner, false);
+      document.addEventListener("webkitAnimationStart", updateBanner, false);
+         
+      }
+  
+    catch(error) {
+  }
+  </script>
+  <style type="text/css">
+    @keyframes tntmarketingcampaign {
+          from {
+              opacity: 0.99
+          }
+          to {
+              opacity: 1
+          }
+      }
+      @keyframes tntmarketingcampaign2 {
+          from {
+              opacity: 0.99
+          }
+          to {
+              opacity: 1
+          }
+      }
+      
+    .section__container--88ack #spotlight-php-hydrator{
+      animation-duration: 0.001s;
+          animation-name: tntmarketingcampaign
+    }
+    [data-module-id=PromotionalNavigation_thd_5874] .promotionalNav2__container{
+      animation-duration: 0.001s;
+          animation-name: tntmarketingcampaign2
+    }
+  </style>
